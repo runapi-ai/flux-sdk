@@ -1,0 +1,77 @@
+{
+  "name": "@runapi.ai/flux",
+  "runapi": {
+    "slug": "flux"
+  },
+  "version": "0.1.0",
+  "description": "RunAPI Flux SDK for image generation and editing in JavaScript, Python, Ruby, Go, Java, and PHP",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@runapi.ai/core": "^0.2.14"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "runapi",
+    "runapi-ai",
+    "flux",
+    "flux-dev",
+    "flux-pro",
+    "flux-2-klein",
+    "api",
+    "sdk",
+    "typescript",
+    "python",
+    "ruby",
+    "golang",
+    "java",
+    "maven",
+    "gradle",
+    "image-generation",
+    "image-editing",
+    "text-to-image",
+    "image-api"
+  ],
+  "author": "RunAPI",
+  "license": "Apache-2.0",
+  "homepage": "https://runapi.ai/models/flux",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/runapi-ai/flux-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/runapi-ai/flux-sdk/issues"
+  }
+}
