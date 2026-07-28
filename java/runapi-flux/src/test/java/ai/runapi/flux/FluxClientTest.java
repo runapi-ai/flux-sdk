@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import ai.runapi.core.RequestOptions;
+import ai.runapi.core.billing.TaskBillingFacts;
 import ai.runapi.core.errors.ValidationException;
 import ai.runapi.core.http.HttpRequest;
 import ai.runapi.core.http.HttpResponse;
@@ -35,6 +36,7 @@ class FluxClientTest {
     assertNotNull(client.textToImage());
     assertNotNull(client.files());
     assertNotNull(client.account());
+    assertNotNull(client.pricing());
   }
 
   @Test
@@ -66,7 +68,7 @@ class FluxClientTest {
 
   @Test
   void getDecodesTaskResponseAndExtraFields() {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_456\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"custom\":\"kept\"}");
+    CapturingTransport transport = new CapturingTransport("{\"id\":\"task_456\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}],\"billing\":{\"reservation\":{\"amount_cents\":12},\"settlement\":{\"charged_amount_cents\":11,\"amount_micro_cents\":1050000},\"refund\":{\"refunded_at\":\"2026-07-23T12:00:00.000000Z\"}},\"custom\":\"kept\"}");
     FluxClient client = FluxClient.builder().apiKey("sk-test").transport(transport).build();
 
     TextToImageResponse response = client.textToImage().get("task_456");
@@ -76,6 +78,12 @@ class FluxClientTest {
     assertEquals("completed", response.getStatus().value());
     assertNotNull(response.getImages());
     assertEquals("kept", response.extraFields().get("custom").asText());
+    TaskBillingFacts billing = response.getBilling();
+    assertNotNull(billing);
+    assertEquals(Long.valueOf(12), billing.getReservation().getAmountCents());
+    assertEquals(Long.valueOf(11), billing.getSettlement().getChargedAmountCents());
+    assertEquals(Long.valueOf(1050000), billing.getSettlement().getAmountMicroCents());
+    assertEquals("2026-07-23T12:00:00.000000Z", billing.getRefund().getRefundedAt());
   }
 
   @Test
@@ -121,7 +129,7 @@ class FluxClientTest {
       FluxClient createClient = FluxClient.builder().apiKey("sk-test").transport(createTransport).build();
       assertNotNull(createClient.remixImage().create(
               RemixImageParams.builder()
-                  .model(RemixImageModel.FLUX_PRO)
+                  .model(RemixImageModel.FLUX_DEV)
                   .prompt("A small red cube on a plain white table, studio product photo")
                   .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
                   .build()
@@ -131,7 +139,7 @@ class FluxClientTest {
       FluxClient createWithOptionsClient = FluxClient.builder().apiKey("sk-test").transport(createWithOptionsTransport).build();
       assertNotNull(createWithOptionsClient.remixImage().create(
               RemixImageParams.builder()
-                  .model(RemixImageModel.FLUX_PRO)
+                  .model(RemixImageModel.FLUX_DEV)
                   .prompt("A small red cube on a plain white table, studio product photo")
                   .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
                   .build(),
@@ -151,7 +159,7 @@ class FluxClientTest {
       FluxClient runClient = FluxClient.builder().apiKey("sk-test").transport(runTransport).build();
       CompletedRemixImageResponse runResponse = runClient.remixImage().run(
               RemixImageParams.builder()
-                  .model(RemixImageModel.FLUX_PRO)
+                  .model(RemixImageModel.FLUX_DEV)
                   .prompt("A small red cube on a plain white table, studio product photo")
                   .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
                   .build(),
@@ -164,7 +172,7 @@ class FluxClientTest {
       FluxClient runWithOptionsClient = FluxClient.builder().apiKey("sk-test").transport(runWithOptionsTransport).build();
       assertNotNull(runWithOptionsClient.remixImage().run(
               RemixImageParams.builder()
-                  .model(RemixImageModel.FLUX_PRO)
+                  .model(RemixImageModel.FLUX_DEV)
                   .prompt("A small red cube on a plain white table, studio product photo")
                   .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
                   .build(),

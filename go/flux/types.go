@@ -1,5 +1,7 @@
 package flux
 
+import "github.com/runapi-ai/core-sdk/go/core"
+
 // TaskStatus represents the lifecycle state of an asynchronous task.
 type TaskStatus string
 
@@ -24,6 +26,7 @@ type RemixImageParams struct {
 
 // AsyncTaskResponse is the base response for an asynchronous image task.
 type AsyncTaskResponse struct {
+	core.TaskBillingFacts
 	ID     string     `json:"id"`
 	Status TaskStatus `json:"status"`
 	Error  string     `json:"error,omitempty"`
