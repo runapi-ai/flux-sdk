@@ -67,8 +67,8 @@ const remix = await client.remixImage.run({
 ## Routing
 
 - Model page: https://runapi.ai/models/flux
-- Product docs: https://runapi.ai/docs#flux
-- SDK docs: https://runapi.ai/docs#sdk-flux
+- Product docs: https://runapi.ai/docs/api/flux/text-to-image
+- SDK docs: https://runapi.ai/docs/resources/sdks
 - SDK repository: https://github.com/runapi-ai/flux-sdk
 - Pricing and rate limits: https://runapi.ai/models/flux/dev
 - Provider comparison: https://runapi.ai/providers/black-forest-labs

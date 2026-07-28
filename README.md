@@ -110,8 +110,8 @@ Most media endpoints are asynchronous. `create()` submits a task and returns its
 ## Public links
 
 - Model page: https://runapi.ai/models/flux
-- SDK docs: https://runapi.ai/docs#sdk-flux
-- Product docs: https://runapi.ai/docs#flux
+- SDK docs: https://runapi.ai/docs/resources/sdks
+- Product docs: https://runapi.ai/docs/api/flux/text-to-image
 - SDK repository: https://github.com/runapi-ai/flux-sdk
 - PHP package repository: https://github.com/runapi-ai/flux-php
 - Skill repository: https://github.com/runapi-ai/flux
