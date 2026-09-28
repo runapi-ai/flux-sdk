@@ -30,8 +30,7 @@ func TestTextToImageCreateAndGet(t *testing.T) {
 	count := 1
 
 	created, err := client.TextToImage.Create(context.Background(), TextToImageParams{
-		Model: "flux-dev", Prompt: "a studio product photograph", AspectRatio: "16:9", OutputCount: &count,
-	})
+		Model: "flux-dev", Prompt: "a studio product photograph", AspectRatio: "16:9", OutputCount: &count})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -49,7 +48,7 @@ func TestTextToImageCreateAndGet(t *testing.T) {
 		t.Fatalf("unexpected task ID: %s", created.ID)
 	}
 
-	stub.response = json.RawMessage(`{"id":"task_123","status":"completed","images":[{"url":"https://cdn.runapi.ai/public/samples/result.jpg"}]}`)
+	stub.response = json.RawMessage(`{"id":"task_123","status":"completed", "usage": {"cost": 0.05},"images":[{"url":"https://cdn.runapi.ai/public/samples/result.jpg"}]}`)
 	result, err := client.TextToImage.Get(context.Background(), "task_123")
 	if err != nil {
 		t.Fatal(err)
@@ -66,8 +65,7 @@ func TestRemixImageCreate(t *testing.T) {
 	stub := &stubHTTPClient{response: json.RawMessage(`{"id":"task_456","status":"processing"}`)}
 	client := NewClientWithHTTP(stub)
 	_, err := client.RemixImage.Create(context.Background(), RemixImageParams{
-		Model: "flux-pro", Prompt: "replace the background", SourceImageURL: "https://cdn.runapi.ai/public/samples/image.jpg",
-	})
+		Model: "flux-pro", Prompt: "replace the background", SourceImageURL: "https://cdn.runapi.ai/public/samples/image.jpg"})
 	if err != nil {
 		t.Fatal(err)
 	}

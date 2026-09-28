@@ -3,7 +3,7 @@
   "runapi": {
     "slug": "flux"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "RunAPI Flux SDK for image generation and editing in JavaScript, Python, Ruby, Go, Java, and PHP",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -31,7 +31,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@runapi.ai/core": "^0.4.2"
+    "@runapi.ai/core": "^0.4.3"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

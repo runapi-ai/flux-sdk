@@ -1,4 +1,4 @@
-import type { AsyncTaskStatus, TaskBillingResponse, TaskResponse } from '@runapi.ai/core';
+import type { AsyncTaskStatus, TaskResponse } from '@runapi.ai/core';
 
 /** Flux model slug. */
 export type FluxModel = string;
@@ -27,7 +27,7 @@ export interface RemixImageParams extends Omit<TextToImageParams, 'model'> {
 }
 
 /** Acknowledgement returned before processing completes. */
-export interface TaskCreateResponse extends TaskBillingResponse {
+export interface TaskCreateResponse {
   id: string;
   status?: 'processing';
 }
