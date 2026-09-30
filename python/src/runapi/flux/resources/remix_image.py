@@ -6,7 +6,6 @@ from typing import Any, Optional
 
 from runapi.core import RequestOptions, Resource
 
-from ..contract_gen import CONTRACT
 from ..types import CompletedRemixImageResponse, RemixImageResponse
 
 
@@ -21,7 +20,6 @@ class RemixImage(Resource):
 
     def create(self, options: Optional[RequestOptions] = None, **params: Any) -> Any:
         compacted = self._compact_params(params)
-        self._validate_contract(CONTRACT["remix-image"], compacted)
         return self._request("post", self.ENDPOINT, body=compacted, options=options)
 
     def get(self, id: str, options: Optional[RequestOptions] = None) -> Any:

@@ -19,13 +19,4 @@ RSpec.describe RunApi::Flux::Resources::RemixImage do
 
     expect(result).to be_a(RunApi::Flux::Types::RemixImageResponse)
   end
-
-  it "requires a source image through the generated contract" do
-    expect do
-      resource.create(
-        model: "flux-pro",
-        prompt: "Replace the background"
-      )
-    end.to raise_error(RunApi::Core::ValidationError, /source_image_url is required/)
-  end
 end

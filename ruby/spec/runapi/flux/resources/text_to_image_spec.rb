@@ -25,9 +25,4 @@ RSpec.describe RunApi::Flux::Resources::TextToImage do
 
     expect(result.images.first.url).to eq("https://cdn.runapi.ai/public/samples/result.jpg")
   end
-
-  it "validates output_count through the generated contract" do
-    expect { resource.create(model: "flux-pro", prompt: "A product photo", output_count: 2) }
-      .to raise_error(RunApi::Core::ValidationError, /output_count must be one of/)
-  end
 end

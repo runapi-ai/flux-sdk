@@ -2,7 +2,6 @@
 
 require "runapi/core"
 require_relative "flux/types"
-require_relative "flux/contract_gen"
 require_relative "flux/resources/text_to_image"
 require_relative "flux/resources/remix_image"
 require_relative "flux/client"

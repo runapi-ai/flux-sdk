@@ -1,6 +1,3 @@
-import pytest
-
-from runapi.core.errors import ValidationError
 from runapi.flux import FluxClient
 from runapi.flux.types import RemixImageResponse, TextToImageResponse
 
@@ -60,23 +57,3 @@ def test_posts_one_source_image_and_uses_public_lookup_path():
             "source_image_url": "https://cdn.runapi.ai/public/samples/image.jpg"},
     )
     assert http.calls[1] == ("get", "/api/v1/flux/remix_image/task-1186", None)
-
-
-@pytest.mark.parametrize(
-    ("resource", "params", "message"),
-    [
-        ("text_to_image", {"model": "flux-2-klein", "prompt": "A product photo", "output_count": 2}, "output_count must be one of"),
-        (
-            "remix_image",
-            {
-                "model": "flux-dev",
-                "prompt": "Replace the background",
-                "source_image_url": None},
-            "source_image_url is required",
-        )],
-)
-def test_generated_contract_rejects_unsupported_shapes(resource, params, message):
-    client = FluxClient(api_key="test-key", http_client=FakeHttp())
-
-    with pytest.raises(ValidationError, match=message):
-        getattr(client, resource).create(**params)
